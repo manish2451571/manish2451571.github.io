@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: expanse-tracker
+    runtime: python
+    rootDir: Backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true        # Render auto-generates a secure random value
+      - key: FRONTEND_ORIGIN
+        sync: false                # Set manually in dashboard after first deploy
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
